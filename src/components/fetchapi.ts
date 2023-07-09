@@ -1,10 +1,11 @@
+/**
+ * 이 파일은 애플리케이션의 API 호출을 정의합니다.
+ *
+ * `apiUrls` 객체는 애플리케이션에서 사용하는 모든 API의 URL을 관리합니다.
+ *
+ */
 import signUp from '../api/signUp';
-const ServerIP = 'http://127.0.0.1:5173';
 
-interface User {
-  id: string;
-  password: string;
-}
 
 export const apiUrls = {
   SignUp: signUp,

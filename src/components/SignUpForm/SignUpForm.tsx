@@ -5,9 +5,9 @@ import { apiUrls } from '../fetchapi';
 
 export default function SignUpForm() {
   const [userId, setUserId] = useState<string>('');
-  const [passwords, setPasswords] = useState<{ password: string; confirmPassword: string }>({
-    password: '',
-    confirmPassword: '',
+  const [passwords, setPasswords] = useState<{ password: string | null; confirmPassword: string | null; }>({
+    password: null,
+    confirmPassword: null,
   });
   const [enableChanges, setEnableChanges] = useState<{
     ID: Boolean;
@@ -66,15 +66,16 @@ export default function SignUpForm() {
    * confirmPassword의 confirmPassword와 password가 다른 경우 errormsg
    */
   useEffect(() => {
-    if (debouncedPassword.confirmPassword && enableChanges['confirmPassword']) {
-      let msg = !debouncedPassword.confirmPassword
+    if (debouncedPassword !==null && enableChanges['confirmPassword']) {
+      console.log('debouncedPassword',debouncedPassword.confirmPassword)
+      let msg = (debouncedPassword.confirmPassword==='')
         ? 'passwordConfirm은 필수 입력 사항입니다.'
         : debouncedPassword.password !== debouncedPassword.confirmPassword
         ? 'password와 passwordConfirm이 서로 다릅니다.'
-        : null;
+        : '';
       setCheckResults((prevState) => ({
         ...prevState,
-        confirmPassword: msg ? `${msg}` : msg,
+        confirmPassword: msg ,
       }));
     }
   }, [debouncedPassword, enableChanges['confirmPassword']]);
